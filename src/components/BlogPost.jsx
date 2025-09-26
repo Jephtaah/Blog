@@ -1,5 +1,6 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { FaCalendar, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import dayjs from 'dayjs';
 import './BlogPost.css';
 
 function BlogPost({ posts }) {
@@ -17,31 +18,27 @@ function BlogPost({ posts }) {
   const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+    return dayjs(dateString).format('MMMM D, YYYY');
   };
 
   return (
-    <article className="blog-post">
+    <div className="blog-post">
       <Link to="/" className="back-link">
         <FaArrowLeft className="back-icon" />
         Back to Home
       </Link>
 
-      <header className="post-header">
+      <div className="post-header">
         <div className="post-meta">
           <FaCalendar className="calendar-icon" />
           <span className="post-date">{formatDate(post.date)}</span>
         </div>
         <h1 className="post-title">{post.title}</h1>
-      </header>
+      </div>
 
       <div className="post-content" dangerouslySetInnerHTML={{ __html: post.content }} />
 
-      <nav className="post-navigation">
+      <div className="post-navigation">
         <div className="nav-links">
           {prevPost && (
             <Link to={`/post/${prevPost.id}`} className="nav-link prev-link">
@@ -63,8 +60,8 @@ function BlogPost({ posts }) {
             </Link>
           )}
         </div>
-      </nav>
-    </article>
+      </div>
+    </div>
   );
 }
 

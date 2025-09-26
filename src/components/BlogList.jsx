@@ -1,22 +1,19 @@
-import { Link } from 'react-router-dom';
-import { FaCalendar, FaArrowRight } from 'react-icons/fa';
-import './BlogList.css';
+import { Link } from "react-router-dom";
+import { FaCalendar, FaArrowRight } from "react-icons/fa";
+import dayjs from "dayjs";
+import "./BlogList.css";
 
 function BlogList({ posts }) {
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+    return dayjs(dateString).format("MMMM D, YYYY");
   };
 
   return (
     <div className="blog-list">
       <h1>Latest Blog Posts</h1>
       <div className="posts-grid">
-        {posts.map(post => (
-          <article key={post.id} className="post-card">
+        {posts.map((post) => (
+          <div key={post.id} className="post-card">
             <div className="post-meta">
               <FaCalendar className="calendar-icon" />
               <span className="post-date">{formatDate(post.date)}</span>
@@ -33,7 +30,7 @@ function BlogList({ posts }) {
             <Link to={`/post/${post.id}`} className="read-more">
               Read more <FaArrowRight className="arrow-icon" />
             </Link>
-          </article>
+          </div>
         ))}
       </div>
     </div>
